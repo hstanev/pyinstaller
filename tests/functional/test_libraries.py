@@ -26,6 +26,17 @@ def test_enchant(pyi_builder):
 def test_tkinter(pyi_builder):
     pyi_builder.test_script('pyi_lib_tkinter.py')
 
+@importorskip('FixTk')
+def test_tkinter_FixTk(pyi_builder):
+    # check if Tkinter includes FixTk
+    # TODO: FixTk doesn't exist in Python 3.4. Check when it was removed.
+    pyi_builder.test_source("""
+    try:
+        # In Python 2 the module name is 'Tkinter'
+        import Tkinter
+    except ImportError:
+        import tkinter
+    """)
 
 @importorskip('zmq')
 def test_zmq(pyi_builder):
