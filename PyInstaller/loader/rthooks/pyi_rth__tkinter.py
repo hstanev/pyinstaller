@@ -24,10 +24,10 @@ except NameError:
 tcldir = os.path.join(sys._MEIPASS, 'tcl')
 tkdir = os.path.join(sys._MEIPASS, 'tk')
 
-if not os.path.isdir(tcldir):
-    raise FileNotFoundError('Tcl data directory "%s" not found.' % (tcldir))
-if not os.path.isdir(tkdir):
-    raise FileNotFoundError('Tk data directory "%s" not found.' % (tkdir))
+#if not os.path.isdir(tcldir):
+#    raise FileNotFoundError('Tcl data directory "%s" not found.' % (tcldir))
+#if not os.path.isdir(tkdir):
+#    raise FileNotFoundError('Tk data directory "%s" not found.' % (tkdir))
 
 # Notify "tkinter" of such directories.
 os.environ["TCL_LIBRARY"] = tcldir
