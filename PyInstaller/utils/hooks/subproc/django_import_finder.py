@@ -31,11 +31,12 @@ from django.conf import settings
 
 from PyInstaller.utils.hooks import collect_submodules
 
+hiddenimports = list(settings.INSTALLED_APPS) + [settings.ROOT_URLCONF]
 
-hiddenimports = list(settings.INSTALLED_APPS) + \
-                 list(settings.TEMPLATE_CONTEXT_PROCESSORS) + \
-                 list(settings.TEMPLATE_LOADERS) + \
-                 [settings.ROOT_URLCONF]
+#hiddenimports = list(settings.INSTALLED_APPS) + \
+#                 list(settings.TEMPLATE_CONTEXT_PROCESSORS) + \
+#                 list(settings.TEMPLATE_LOADERS) + \
+#                 [settings.ROOT_URLCONF]
 
 
 def _remove_class(class_name):
@@ -91,13 +92,14 @@ def find_url_callbacks(urls_module):
     return hid_list
 
 
-# Add templatetags and context processors for each installed app.
-for app in settings.INSTALLED_APPS:
-    app_templatetag_module = app + '.templatetags'
-    app_ctx_proc_module = app + '.context_processors'
-    hiddenimports.append(app_templatetag_module)
-    hiddenimports += collect_submodules(app_templatetag_module)
-    hiddenimports.append(app_ctx_proc_module)
+# XXX This is silly. Why polute hiddenimports with inexisting imports
+## Add templatetags and context processors for each installed app.
+#for app in settings.INSTALLED_APPS:
+#    app_templatetag_module = app + '.templatetags'
+#    app_ctx_proc_module = app + '.context_processors'
+#    hiddenimports.append(app_templatetag_module)
+#    hiddenimports += collect_submodules(app_templatetag_module)
+#    hiddenimports.append(app_ctx_proc_module)
 
 
 from django.core.urlresolvers import RegexURLPattern, RegexURLResolver
